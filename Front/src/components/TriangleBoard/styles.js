@@ -6,7 +6,7 @@ export const TriangleUp = styled.div`
   height: 0;
   border-left: 25px solid transparent;
   border-right: 25px  solid transparent;
-  border-top: 25px solid #f00;
+  border-top: 25px solid #fbfbfb;
   position: absolute;
   cursor: pointer;
   top: ${props => props.top+`px`|| 0};
@@ -18,7 +18,7 @@ export const TriangleDown = styled.div`
   height: 0;
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;
-  border-bottom:25px solid #fbfbfb;
+  border-bottom:25px solid #9e4770 ;
   position: absolute;
   cursor: pointer;
   top: ${props => props.top+`px`|| 0};

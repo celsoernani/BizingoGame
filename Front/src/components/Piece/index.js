@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import { PieceContainer } from './styles';
+import { PieceContainer, PieceCaptain } from './styles';
 
 export default function Piece({alive, captain,  side, top, left}) {
   const [statePiece, setStatePiece] = useState({
@@ -13,7 +13,9 @@ export default function Piece({alive, captain,  side, top, left}) {
 
   return (
     <>
-    <PieceContainer captain = {captain} side = {side} top = {top} left = {left} />
+    {
+      captain ? <PieceCaptain  side = {side} top = {top} left = {left} />  : <PieceContainer  side = {side} top = {top} left = {left} />
+    }
     </>
   );
 }

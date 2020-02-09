@@ -4,7 +4,7 @@ import GlobalStyle from './styles/global';
 import Game from './pages/Game'
 import Chat from './pages/Chat'
 import InfoGamer from './components/InfoGamer';
-const socket = socketio('http://localhost:8000');
+// const socket = socketio('http://localhost:8000');
 
 
 function App() {

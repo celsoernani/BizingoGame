@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Container } from './styles';
 import Board from './../../components/Board';
 import {renderBoard} from './../../utils/board';
-
+import {initialPieces} from  './../../utils/initialState';
 export default function Game() {
   const [triangles, setTriangles] = useState([]);
   const [stateGame, setstateGame] = useState({
@@ -19,18 +19,7 @@ export default function Game() {
         label: 'Player Two',
       },
     ],
-    pieces: [{
-      id: 0,
-      alive:true,
-      captain:true,
-      side: 0,
-      top: 45,
-      left: 410
-      }
-
-
-    ],
-
+    pieces: initialPieces,
   });
   useEffect(() => {
       setTriangles(renderBoard());
@@ -39,7 +28,9 @@ export default function Game() {
 
   return (
     <Container >
-        <Board triangles = {triangles} pieces = {stateGame.pieces} />
+      {
+      triangles.length > 0 && stateGame.pieces.length > 0 && <Board triangles = {triangles} pieces = {stateGame.pieces} />
+      }
     </Container>
   );
 }
