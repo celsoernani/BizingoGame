@@ -1,10 +1,9 @@
 .messageBox {
-  background: #F3F3F3;
-  border-radius: 20px;
-  padding: 5px 20px;
+  border-radius: 15px;
+  padding: 1px 15px;
+  margin-right: 10px;
   color: white;
   display: inline-block;
-  max-width: 80%;
 }
 
 .messageText {
@@ -23,7 +22,6 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 3px;
-  width: 80%;
 }
 
 .sentText {
@@ -34,13 +32,6 @@
   letter-spacing: 0.3px;
 }
 
-.pl-10 {
-  padding-left: 10px;
-}
-
-.pr-10 {
-  padding-right: 10px;
-}
 
 .justifyStart {
   justify-content: flex-start;
@@ -59,9 +50,9 @@
 }
 
 .backgroundPurple {
-  background:  #BC97CC;
+  background:  #201A23 ;
 }
 
 .backgroundLight {
-  background: #fbfbfb;
+  background:#BC97CC ;
 }

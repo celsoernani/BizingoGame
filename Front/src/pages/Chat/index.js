@@ -14,7 +14,6 @@ export default function Chat({socket, name}) {
     });
     return () => {
       socket.emit('disconnect');
-
       socket.off();
     }
   }, [messages])
@@ -22,7 +21,9 @@ export default function Chat({socket, name}) {
   const sendMessage = (event) => {
       event.preventDefault();
       if(message) {
+        setMessages([...messages, {player: name, text: message}]);
         socket.emit('sendMessage', message, () => setMessage(''));
+        setMessage('')
       }
     }
 
@@ -31,10 +32,9 @@ export default function Chat({socket, name}) {
       <h4 style = {{ margin: 0, alignSelf: 'center'}}> CHAT </h4>
       <Scroll >
         {messages.map((message ,i) =>
-            <MessageBox message = {message} name = {name}/>
+            <MessageBox key = {i} message = {message} name = {name}/>
         )}
       </Scroll>
-
       <InputChat
         value = {message}
         onChange = {(event) => setMessage(event.target.value)}

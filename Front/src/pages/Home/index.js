@@ -26,10 +26,10 @@ export default function Home({location}) {
       socket.off();
     }
 
-  }, [ENDPOINT, location.search ]);
+  }, [location.search ]);
   return (
   <>
-  <InfoGamer/>
+  {/* <InfoGamer/> */}
    <div style={{ display: 'flex'}}>
     <Game socket = {socket} name = {name}/>
     <Chat socket = {socket}  name = {name}/>

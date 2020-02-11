@@ -5,7 +5,6 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 export const Container = styled.div`
   height: 100%;
   min-height: 600px;
-  width: 10%;
   justify-content: space-between;
   min-width: 250px;
   box-sizing: border-box;
@@ -16,8 +15,9 @@ export const Container = styled.div`
 `
 
 export const Scroll = styled(ScrollToBottom)`
-  min-height: 420px;
-
+  padding: 5% 0;
+  overflow: auto;
+  height: 400px;
 `
 export const InputChat = styled.input`
   border: 1px solid #ddd;

@@ -23,7 +23,11 @@ const removePlayer = (id) => {
 }
 const getPlayer = (id) => {
   const player = players.find((player) => player.id === id);
-  return player;
+  if(player){
+    return {player};  
+  }
+  return {error: 'O Jogador saiu da sessão.'}
+  
 }
 
 module.exports = {addPlayer,removePlayer, getPlayer}

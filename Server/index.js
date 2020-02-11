@@ -19,7 +19,9 @@ io.on("connection", socket => {
   });
   
   socket.on('sendMessage', (message, callback) => {
-    const player = getPlayer(socket.id);
+    const {error, player} = getPlayer(socket.id);
+    console.log(player)
+    if(error) return callback(error);
     socket.broadcast.emit('message', { player: player.name, text: message });
     callback();
   });
@@ -34,14 +36,6 @@ io.on("connection", socket => {
   }
   );
 });
-// io.on('connection', socket => {
-
-//   socket.emit('previousMessage', messages);
-//   socket.on('sendMessage', data => {
-//     messages.push(data);
-//     socket.broadcast.emit('receivedMessage', data);
-//   });
-// });
 
 server.listen(PORT, console.log(`Server started on  port ${PORT}`));
 
