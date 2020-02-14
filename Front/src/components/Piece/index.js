@@ -2,19 +2,15 @@ import React, {useState} from 'react';
 
 import { PieceContainer, PieceCaptain } from './styles';
 
-export default function Piece({alive, captain,  side, top, left}) {
-  const [statePiece, setStatePiece] = useState({
-    alive,
-    captain,
-    side,
-    top,
-    left
-  });
+export default function Piece({piece, positionPiece, movePiece }) {
 
   return (
     <>
     {
-      captain ? <PieceCaptain  side = {side} top = {top} left = {left} />  : <PieceContainer  side = {side} top = {top} left = {left} />
+      piece.captain ? <PieceCaptain  onClick = {() => {movePiece(positionPiece, piece  )}}
+                      side = { piece.side} top = {positionPiece.top + 8} left = {positionPiece.left + 17} />  :
+                      <PieceContainer onClick = {() => {movePiece(positionPiece, piece  )}}
+                      side = {piece.side} top = {positionPiece.top + 8} left = {positionPiece.left + 17}  />
     }
     </>
   );

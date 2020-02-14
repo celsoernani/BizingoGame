@@ -1,15 +1,28 @@
 const players = [];
 const addPlayer = ({id, name}) => {
-  if(players.length === 2){
-    return {error: 'A sessão está lotada.'};
-  }
-  name = name.trim().toLowerCase();
-  const existingPlayer = players.find((player) => player.name === name);
 
+  name = name.trim().toLowerCase();
+  const room = 100;
+  const existingPlayer = players.find((player) => player.name === name);
   if(existingPlayer) {
     return {error: 'O Jogador já está na sessão.'}
   }
-  const player = {id, name};
+  const player = {};
+
+  if(players.length > 1){
+    return {error: 'A sessão está lotada.'};
+  }
+  else if(players.length === 0){
+     player.id = id;
+     player.name = name;
+     player.side=  0;
+     room;
+  }else if(players.length === 1){
+    player.id = id
+    player.name = name
+    player.side=  1;
+    room
+  }
   players.push(player);
   return {player};
 }
@@ -30,4 +43,14 @@ const getPlayer = (id) => {
   
 }
 
-module.exports = {addPlayer,removePlayer, getPlayer}
+const getPlayers = () => {
+  if(players.length > 0){
+    return players;
+  }
+  return {error: 'Sem jogadores sessão.'}
+
+
+}
+
+
+module.exports = {addPlayer,removePlayer, getPlayer, getPlayers}

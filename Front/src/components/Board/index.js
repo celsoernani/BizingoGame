@@ -1,26 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import TriangleBoard from './../../components/TriangleBoard';
 import Piece from './../../components/Piece';
-import {findTriangleByPiece} from './../../moves/';
+import {findTriangleByPiece, findPieceByTriangle} from './../../moves/';
 import { Container } from './styles';
 
-export default function Board({triangles, pieces}) {
+export default function Board({triangles, pieces, movePiece}) {
   return (
     <Container>
       { pieces.map(piece => {
-        if(piece.alive){
-          const positionPiece = findTriangleByPiece(triangles,piece);
-          return <Piece  key = {piece.id} alive ={piece.alive} captain= {piece.captain}
-                         side = {piece.side}
-                         top = {positionPiece.top + 8} left = {positionPiece.left + 17} />
+        const positionPiece = findTriangleByPiece(triangles,piece);
+        if(piece.alive && positionPiece ){
+          return <Piece  key = {piece.id} piece = {piece} positionPiece = {positionPiece} movePiece = {movePiece} />
         }
       })}
-    {triangles.map(triangle => (
-      <TriangleBoard key = {triangle.label}  triangle = {triangle}/>
-        )
+    {triangles.map(triangle =>
+      {
+        const foundPiece = findPieceByTriangle(pieces, triangle);
+        if(foundPiece){
+          triangle.piece = foundPiece;
+        }
+        return <TriangleBoard key = {triangle.label}   movePiece = {movePiece} triangle = {triangle}/>
+      }
+
     )}
-
-
     </Container>
   );
 }

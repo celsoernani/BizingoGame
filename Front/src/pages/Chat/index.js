@@ -3,7 +3,7 @@ import { Container, InputChat,ButtonSend,Scroll  } from './styles';
 import MessageBox from './../../components/MessageBox';
 
 
-export default function Chat({socket, name}) {
+export default function Chat({socket, player}) {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
 
@@ -16,15 +16,16 @@ export default function Chat({socket, name}) {
       socket.emit('disconnect');
       socket.off();
     }
-  }, [messages])
+  })
 
   const sendMessage = (event) => {
       event.preventDefault();
       if(message) {
-        setMessages([...messages, {player: name, text: message}]);
+        setMessages([...messages, {player: player.name, text: message}]);
         socket.emit('sendMessage', message, () => setMessage(''));
         setMessage('')
       }
+
     }
 
   return (
@@ -32,7 +33,7 @@ export default function Chat({socket, name}) {
       <h4 style = {{ margin: 0, alignSelf: 'center'}}> CHAT </h4>
       <Scroll >
         {messages.map((message ,i) =>
-            <MessageBox key = {i} message = {message} name = {name}/>
+            <MessageBox key = {i} message = {message} name = {player.name}/>
         )}
       </Scroll>
       <InputChat

@@ -4,22 +4,25 @@ import Chat from '../Chat';
 import InfoGamer from '../../components/InfoGamer';
 import io from "socket.io-client";
 import queryString from 'query-string';
-
+import {toast} from 'react-toastify';
 const ENDPOINT = 'localhost:8000';
 const socket = io(ENDPOINT);
 
 export default function Home({location}) {
-  const [name, setName] = useState('');
+  const [player, setPlayer] = useState('');
+  const [session, setSession] = useState(false);
+
 
   useEffect(() => {
     const {name} =  queryString.parse(location.search);
-    setName(name);
+    socket.emit('join', {name}, (response) => {
+      if('error' in response) {
+      setSession(true);
+      return toast.error(response.error);
+      }
+      setPlayer(response);
 
-    socket.emit('join', {name}, () => {
     });
-    socket.on('ingame', ({player_name}) => {
-      alert(`Bem vindo ! ${player_name}`)
-    })
 
     return() => {
       socket.emit('disconnect');
@@ -30,10 +33,12 @@ export default function Home({location}) {
   return (
   <>
   {/* <InfoGamer/> */}
-   <div style={{ display: 'flex'}}>
-    <Game socket = {socket} name = {name}/>
-    <Chat socket = {socket}  name = {name}/>
-   </div>
+    {session ? null :
+    <div style={{ display: 'flex'}}>
+    <Game socket = {socket} player = {player}/>
+    <Chat socket = {socket} player = {player}/>
+   </div> }
+
    </>
   );
 }

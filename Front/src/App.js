@@ -1,6 +1,6 @@
 import React from 'react';
 import GlobalStyle from './styles/global';
-
+import {ToastContainer} from 'react-toastify';
 import Home from './pages/Home';
 import Login from './pages/Login';
 
@@ -10,6 +10,7 @@ const App = () => {
   return (
     <Router>
        <GlobalStyle/>
+       <ToastContainer autoClose = {5000}/>
       <Route path="/" exact component={Login} />
       <Route path="/game" component={Home} />
     </Router>
