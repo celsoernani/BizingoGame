@@ -2,7 +2,7 @@ const players = [];
 const addPlayer = ({id, name}) => {
 
   name = name.trim().toLowerCase();
-  const room = 100;
+  const room = 'game';
   const existingPlayer = players.find((player) => player.name === name);
   if(existingPlayer) {
     return {error: 'O Jogador já está na sessão.'}
@@ -16,12 +16,14 @@ const addPlayer = ({id, name}) => {
      player.id = id;
      player.name = name;
      player.side=  0;
-     room;
+     player.room =  room;
   }else if(players.length === 1){
     player.id = id
     player.name = name
     player.side=  1;
-    room
+    player.room =  room;
+    
+
   }
   players.push(player);
   return {player};

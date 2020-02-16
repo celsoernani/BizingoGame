@@ -5,7 +5,7 @@ import {findTriangleByPiece, findPieceByTriangle} from './../../moves/';
 import { Container,ButtonRestart } from './styles';
 import { GiBackwardTime } from "react-icons/gi";
 
-export default function Board({triangles, pieces  , movePiece, restartGame}) {
+export default function Board({triangles, pieces  , movePiece, restartGame, initial}) {
   return (
     <Container>
       { pieces.map(piece => {
@@ -17,7 +17,7 @@ export default function Board({triangles, pieces  , movePiece, restartGame}) {
     {triangles.map(triangle =>
       {
         const foundPiece = findPieceByTriangle(pieces, triangle);
-        if(foundPiece){
+        if( foundPiece ){
           triangle.piece = foundPiece;
         }
         return <TriangleBoard key = {triangle.label}   movePiece = {movePiece} triangle = {triangle}/>

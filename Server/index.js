@@ -14,17 +14,29 @@ io.on("connection", socket => {
                   ${socket.id} e se chama ${name}`);
     const {error, player} = addPlayer({id: socket.id, name})
     if(error) callback({error: error});
-    socket.join(100);
-    io.to(100).emit('players', { players: getPlayers() });
+    socket.join('game');
+    // sending to all clients in 'game' room, including sender
+    io.to('game').emit('players', { players: getPlayers() });
     callback(player)
   });
 
   socket.on('sendMessage', (message, callback) => {
     const {error, player} = getPlayer(socket.id);
     if(error) return callback(error);
+      // sending to all clients except sender
     socket.broadcast.emit('message', { player: player.name, text: message });
     callback();
   });
+  socket.on('CHANGE_GAME', (gameState) => {
+    // sending to all clients except sender
+    socket.broadcast.emit('MOVE_PIECES', {gameState});
+  });
+
+  socket.on('RESET_GAME', (gameState) => {
+    // sending to all clients except sender
+    socket.broadcast.emit('RESET', {gameState});
+  });
+
   socket.on("disconnect", () => {
     const player = removePlayer(socket.id);
     if(player){
@@ -32,6 +44,8 @@ io.on("connection", socket => {
     }
   }
   );
+
+
 });
 
 server.listen(PORT, console.log(`Server started on port ${PORT}`));
