@@ -1,4 +1,4 @@
-export const renderBoard = () => {
+const renderBoard = () => {
   const triangles = [];
   var initial_left = 405;
   var quant_pices = 5;
@@ -45,3 +45,6 @@ while(quant_pices > 18){
 }
     return triangles;
 }
+
+const trianglesInitial = renderBoard()
+export default trianglesInitial;

@@ -1,4 +1,4 @@
-export const initialPieces = [
+const renderPieces = [
   //player 1 InitialState
   {
     id: 0,
@@ -258,3 +258,4 @@ export const initialPieces = [
   },
 
 ]
+export default renderPieces;

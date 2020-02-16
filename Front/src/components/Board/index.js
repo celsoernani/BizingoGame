@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import TriangleBoard from './../../components/TriangleBoard';
 import Piece from './../../components/Piece';
 import {findTriangleByPiece, findPieceByTriangle} from './../../moves/';
-import { Container } from './styles';
+import { Container,ButtonRestart } from './styles';
+import { GiBackwardTime } from "react-icons/gi";
 
-export default function Board({triangles, pieces, movePiece}) {
+export default function Board({triangles, pieces  , movePiece, restartGame}) {
   return (
     <Container>
       { pieces.map(piece => {
@@ -21,8 +22,9 @@ export default function Board({triangles, pieces, movePiece}) {
         }
         return <TriangleBoard key = {triangle.label}   movePiece = {movePiece} triangle = {triangle}/>
       }
-
     )}
+
+    <ButtonRestart onClick = {() => restartGame()}> <GiBackwardTime/> REINICIAR O JOGO</ButtonRestart>
     </Container>
   );
 }

@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Router>
        <GlobalStyle/>
-       <ToastContainer autoClose = {5000}/>
+       <ToastContainer autoClose = {3000}/>
       <Route path="/" exact component={Login} />
       <Route path="/game" component={Home} />
     </Router>

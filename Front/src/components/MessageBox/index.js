@@ -16,14 +16,14 @@ const MessageBox = ({ message: { text, player }, name }) => {
       ? (
         <div className="messageContainer justifyEnd">
           <div className="messageBox backgroundPurple">
-            <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
+            <p className="messageText colorPurple">{ReactEmoji.emojify(text)}</p>
           </div>
         </div>
         )
         : (
           <div className="messageContainer justifyStart">
             <div className="messageBox backgroundLight">
-              <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
+              <p className="messageText colorRed">{ReactEmoji.emojify(text)}</p>
             </div>
             <p className="sentText">{player}</p>
           </div>

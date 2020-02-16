@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Sriracha&display=swap');
   body {
-    background-color: #FBFBFB;
+    background-color: #BC97CC;
     font-family: 'Sriracha', cursive;
   }
   button {

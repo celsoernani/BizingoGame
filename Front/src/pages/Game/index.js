@@ -1,16 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import { Container } from './styles';
+import React, {useEffect, useState, useCallback} from 'react';
 import Board from './../../components/Board';
-import {renderBoard} from './../../utils/board';
+import trianglesInitial from './../../utils/trianglesInitial';
+import initialPieces from  './../../utils/initialPieces';
 import {toast} from 'react-toastify';
-import {initialPieces} from  './../../utils/initialState';
-export default function Game({socket, player}) {
+import socket from '../../conection/socket';
+
+
+export default function Game({player}) {
   const [selectedPiece, setSelectedPiece] = useState({});
   const [stateGame, setstateGame] = useState({
     gameOver: false,
     players: [],
     pieces: initialPieces,
-    triangles: renderBoard()
+    triangles: trianglesInitial
   });
 
 
@@ -22,15 +24,34 @@ useEffect(() => {
     if(players.length > 1 ){
       const indexPlayer1 = players.findIndex(p => p.side === 1)
       players[indexPlayer1].turn = false;
-      toast.info('O jogador 1 quem começa o jogo.');
+      toast.info(`O jogador ${players[indexPlayer0].name} quem começa o jogo.`);
     }
     setstateGame({...stateGame, players});
+  });
+  socket.on('MOVE_PIECES', ({gameState}) => {
+    console.log('recebendo estado novo',gameState )
+    setstateGame(gameState);
   });
   return () => {
     socket.emit('disconnect');
     socket.off();
   }
-}, [stateGame])
+});
+
+
+
+
+const restartGame =  () => {
+  console.log(trianglesInitial,initialPieces)
+  // setstateGame({
+  //   ...stateGame,
+  //   pieces: initialPiecesRestart,
+  //   triangles: initialTriangles
+  // })
+  console.log('mandando estado novo', stateGame)
+  // socket.emit('CHANGE_GAME', stateGame);
+
+}
 
 const alterPositionPiece = (oldPiece) => {
     const pieceIndex = stateGame.pieces.findIndex(p => p.id === oldPiece.id);
@@ -38,24 +59,23 @@ const alterPositionPiece = (oldPiece) => {
     piecesAux[pieceIndex] = oldPiece;
     setstateGame({...stateGame, pieces: piecesAux})
 }
-const removePieceInTriangle = (triangleOld) => {
-
-    const triangleIndex = stateGame.triangles.findIndex(t => t.label === triangleOld.label);
-    delete triangleOld.piece;
+const removePieceInTriangle = (triangleWithPiece, positionPieceOld) => {
+    positionPieceOld.labelPosition = -1;
+    const triangleIndex = stateGame.triangles.findIndex(t => t.label === triangleWithPiece.label);
     const trianglesAux = stateGame.triangles;
-    trianglesAux.push(triangleOld);
-    trianglesAux.splice( trianglesAux.indexOf(triangleIndex), 1 );
-    setstateGame({...stateGame, triangles: trianglesAux });
-
+    delete trianglesAux[triangleIndex].piece;
+    setstateGame({
+      ...stateGame,
+       triangles: trianglesAux
+      });
 }
 
 const prepMove = (positionTriangle, positionPiece) => {
-  const activatePlayer = stateGame.players.find(p => p.turn);
-  if(player.side === activatePlayer.side && activatePlayer.turn){
+  const activatePlayer = stateGame.players.findIndex(p => p.turn);
+  if(player.side ===  stateGame.players[activatePlayer].side && stateGame.players[activatePlayer].turn){
     if(positionPiece){
-      const getPiece = stateGame.pieces.find(piec => piec.id === positionPiece.id);
-      removePieceInTriangle(positionTriangle);
-      setSelectedPiece(getPiece);
+      setSelectedPiece(positionPiece);
+      removePieceInTriangle(positionTriangle,positionPiece);
     }else{
         if('id' in selectedPiece){
           if(selectedPiece.side === positionTriangle.side){
@@ -65,7 +85,10 @@ const prepMove = (positionTriangle, positionPiece) => {
             toast.error("Você só pode se movimentar para triangulos da mesma cor.")
 
           }
+          // activatePlayer.turn
           setSelectedPiece({});
+          socket.emit('CHANGE_GAME', stateGame);
+
 
         }else{
           toast.error('Selecione uma peça.');
@@ -78,14 +101,14 @@ const prepMove = (positionTriangle, positionPiece) => {
   }
 }
 
-console.log(stateGame.triangles);
 
   return (
-    <Container >
-
+    <>
       {
-       stateGame.triangles.length > 0 && stateGame.pieces.length > 0 && <Board triangles = {stateGame.triangles}  movePiece = {prepMove} pieces = {stateGame.pieces} />
+       stateGame.triangles.length > 0 && stateGame.pieces.length > 0 &&
+       <Board triangles = {stateGame.triangles} restartGame = {restartGame} movePiece = {prepMove}
+              pieces = {stateGame.pieces} />
       }
-    </Container>
+    </>
   );
 }

@@ -2,11 +2,9 @@ import React, {useState, useEffect} from 'react';
 import Game from '../Game';
 import Chat from '../Chat';
 import InfoGamer from '../../components/InfoGamer';
-import io from "socket.io-client";
 import queryString from 'query-string';
 import {toast} from 'react-toastify';
-const ENDPOINT = 'localhost:8000';
-const socket = io(ENDPOINT);
+import socket from '../../conection/socket';
 
 export default function Home({location}) {
   const [player, setPlayer] = useState('');
@@ -35,8 +33,10 @@ export default function Home({location}) {
   {/* <InfoGamer/> */}
     {session ? null :
     <div style={{ display: 'flex'}}>
-    <Game socket = {socket} player = {player}/>
-    <Chat socket = {socket} player = {player}/>
+    <Chat player = {player}/>
+    <Game player = {player}/>
+
+
    </div> }
 
    </>

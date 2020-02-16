@@ -8,6 +8,7 @@ export const Container = styled.div`
   justify-content: space-between;
   min-width: 250px;
   box-sizing: border-box;
+  margin-right: 20px;
   margin-left: 20px;
   padding: 0;
   display: flex;
@@ -16,6 +17,8 @@ export const Container = styled.div`
 
 export const Scroll = styled(ScrollToBottom)`
   padding: 5% 0;
+  border: 2px solid white;
+  border-radius: 5px;
   overflow: auto;
   height: 400px;
 `
