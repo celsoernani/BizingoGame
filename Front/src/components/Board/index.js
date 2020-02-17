@@ -5,7 +5,7 @@ import {findTriangleByPiece, findPieceByTriangle} from './../../moves/';
 import { Container,ButtonRestart } from './styles';
 import { GiBackwardTime } from "react-icons/gi";
 
-export default function Board({triangles, pieces  , movePiece, restartGame, initial}) {
+export default function Board({triangles, pieces  , movePiece, restartGame}) {
   return (
     <Container>
       { pieces.map(piece => {

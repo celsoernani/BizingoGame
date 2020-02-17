@@ -5,6 +5,7 @@ import socket from '../../conection/socket';
 
 export default function Game({player, initialPieces, initialTriangles}) {
   const [selectedPiece, setSelectedPiece] = useState({});
+
   const [stateGame, setstateGame] = useState({
     gameOver: false,
     players: [],
@@ -16,7 +17,6 @@ useEffect(() => {
   socket.on('players', ({players}) => {
     const indexPlayer0 = players.findIndex(p => p.side === 0)
     players[indexPlayer0].turn = true;
-
     if(players.length > 1 ){
       const indexPlayer1 = players.findIndex(p => p.side === 1)
       players[indexPlayer1].turn = false;
@@ -27,18 +27,15 @@ useEffect(() => {
   socket.on('MOVE_PIECES', ({gameState}) => {
     setstateGame(gameState);
   });
-
   socket.on('RESET', ({gameState}) => {
     setstateGame(gameState);
     toast.success('Jogo reiniciado com sucesso.')
   });
-
   return () => {
     socket.emit('disconnect');
     socket.off();
   }
 });
-
 const restartGame = () => {
   const reset = ({
     ...stateGame,
@@ -308,7 +305,6 @@ const restartGame = () => {
   socket.emit('RESET_GAME', reset);
   toast.success('Jogo reiniciado com sucesso.')
 };
-
 const checkKill = (newTriangle,piecesAux,pieceIndex) => {
     const trianglesAux = stateGame.triangles;
     const triangleDown = trianglesAux.find(t => t.top === newTriangle.top + 45 && newTriangle.left === t.left);
@@ -323,11 +319,32 @@ const checkKill = (newTriangle,piecesAux,pieceIndex) => {
     }else{
       return true
     }
+};
+const checkKillAll = () => {
+  const auxPieces = stateGame.pieces;
+  const auxTriangles = stateGame.triangles;
+  stateGame.triangles.forEach((triangle)=> {
+    if('piece' in triangle) {
+      const triangleDown =  stateGame.triangles.find(t => t.top === triangle.top + 45 && triangle.left === t.left);
+      const triangleTop =  stateGame.triangles.find(t => t.top === triangle.top - 45 && triangle.left === t.left);
+      const triangleRight =  stateGame.triangles.find(t => t.left === triangle.left - 50 && triangle.top === t.top);
+      const triangleLeft =  stateGame.triangles.find(t => t.left === triangle.left + 50 && triangle.top === t.top);
+    if(triangleDown && triangleTop && triangleRight && triangleLeft){
+      if('piece' in triangleTop && 'piece' in triangleDown  &&
+          'piece' in triangleLeft && 'piece' in triangleRight){
+          const killPiece =  stateGame.pieces.find(p => p.labelPosition === triangle.label);
+          delete triangle.piece;
+          killPiece.alive = false;
+          setstateGame({...stateGame, pieces: [...auxPieces,killPiece ], triangles: [...auxTriangles, triangle] })
+          socket.emit('CHANGE_GAME', stateGame);
+          toast.info("Peça morta");
+      }else{
+
+      }
+    }
   }
-
-
-
-
+})
+};
 const alterPositionPiece = (newPiece, newTriangle) => {
     const pieceIndex = stateGame.pieces.findIndex(p => p.id === newPiece.id);
     let piecesAux = stateGame.pieces;
@@ -360,7 +377,6 @@ const removePieceInTriangle = (triangleWithPiece, positionPieceOld) => {
        triangles: trianglesAux
       });
 };
-
 const prepMove = (positionTriangle, positionPiece) => {
   const activatePlayer = stateGame.players.findIndex(p => p.turn);
   if(player.side ===  stateGame.players[activatePlayer].side && stateGame.players[activatePlayer].turn){
@@ -368,9 +384,9 @@ const prepMove = (positionTriangle, positionPiece) => {
       if(positionPiece.side === activatePlayer) {
         setSelectedPiece(positionPiece);
         removePieceInTriangle(positionTriangle,positionPiece);
+        verifyGameOver();
       }else{
         toast.error("Você só pode se movimentar suas peças.")
-
       }
 
     }else{
@@ -382,6 +398,9 @@ const prepMove = (positionTriangle, positionPiece) => {
             toast.error("Você só pode se movimentar para triangulos da mesma cor.")
           }
           socket.emit('CHANGE_GAME', stateGame);
+          checkKillAll();
+          verifyGameOver();
+
         }else{
           toast.error('Selecione uma peça.');
         }
@@ -389,8 +408,15 @@ const prepMove = (positionTriangle, positionPiece) => {
   }else{
     toast.error('Não é sua vez.')
   }
-}
 
+};
+const verifyGameOver = () =>{
+  const auxPieces = stateGame.pieces;
+  const pieceAlive = auxPieces.includes(p => p.alive === false && player.side === p.side);
+  if(pieceAlive){
+    toast.info('Você perdeu o jogo.')
+  }
+}
   return (
     <>
       {
