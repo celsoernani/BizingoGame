@@ -17,7 +17,7 @@ export default function Board({triangles, pieces  , movePiece, restartGame, init
     {triangles.map(triangle =>
       {
         const foundPiece = findPieceByTriangle(pieces, triangle);
-        if( foundPiece ){
+        if( foundPiece && foundPiece.alive){
           triangle.piece = foundPiece;
         }
         return <TriangleBoard key = {triangle.label}   movePiece = {movePiece} triangle = {triangle}/>

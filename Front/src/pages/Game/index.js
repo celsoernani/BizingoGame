@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import Board from './../../components/Board';
 import {toast} from 'react-toastify';
 import socket from '../../conection/socket';
@@ -11,7 +11,6 @@ export default function Game({player, initialPieces, initialTriangles}) {
     pieces: initialPieces,
     triangles: initialTriangles
   });
-
 
 useEffect(() => {
   socket.on('players', ({players}) => {
@@ -39,7 +38,6 @@ useEffect(() => {
     socket.off();
   }
 });
-
 
 const restartGame = () => {
   const reset = ({
@@ -311,10 +309,30 @@ const restartGame = () => {
   toast.success('Jogo reiniciado com sucesso.')
 };
 
-const alterPositionPiece = (oldPiece) => {
-    const pieceIndex = stateGame.pieces.findIndex(p => p.id === oldPiece.id);
+const checkKill = (newTriangle,piecesAux,pieceIndex) => {
+    const trianglesAux = stateGame.triangles;
+    const triangleDown = trianglesAux.find(t => t.top === newTriangle.top + 45 && newTriangle.left === t.left);
+    const triangleTop = trianglesAux.find(t => t.top === newTriangle.top - 45 && newTriangle.left === t.left);
+    const triangleRight = trianglesAux.find(t => t.left === newTriangle.left - 50 && newTriangle.top === t.top);
+    const triangleLeft = trianglesAux.find(t => t.left === newTriangle.left + 50 && newTriangle.top === t.top);
+
+    if('piece' in triangleTop && 'piece' in triangleDown  &&
+       'piece' in triangleLeft && 'piece' in triangleRight){
+        piecesAux[pieceIndex].alive = false;
+        toast.info('Você perdeu a peça movimentada.')
+    }else{
+      return true
+    }
+  }
+
+
+
+
+const alterPositionPiece = (newPiece, newTriangle) => {
+    const pieceIndex = stateGame.pieces.findIndex(p => p.id === newPiece.id);
     let piecesAux = stateGame.pieces;
-    piecesAux[pieceIndex] = oldPiece;
+    piecesAux[pieceIndex] = newPiece;
+    //mudando o turno
     const playerIndexTurn = stateGame.players.findIndex(pl => pl.side === player.side);
     let playersAux = stateGame.players;
     if(playersAux.length > 1){
@@ -325,12 +343,13 @@ const alterPositionPiece = (oldPiece) => {
         playersAux[0].turn = true;
         playersAux[1].turn = false;
       }
+    checkKill(newTriangle,piecesAux,pieceIndex);
     setstateGame({...stateGame, pieces: piecesAux, players:playersAux })
     }else{
       toast.error('Espere seu amigo para jogar.');
     }
 
-}
+};
 const removePieceInTriangle = (triangleWithPiece, positionPieceOld) => {
     positionPieceOld.labelPosition = -1;
     const triangleIndex = stateGame.triangles.findIndex(t => t.label === triangleWithPiece.label);
@@ -340,7 +359,7 @@ const removePieceInTriangle = (triangleWithPiece, positionPieceOld) => {
       ...stateGame,
        triangles: trianglesAux
       });
-}
+};
 
 const prepMove = (positionTriangle, positionPiece) => {
   const activatePlayer = stateGame.players.findIndex(p => p.turn);
@@ -358,26 +377,19 @@ const prepMove = (positionTriangle, positionPiece) => {
       if('id' in selectedPiece){
           if(selectedPiece.side === positionTriangle.side){
             selectedPiece.labelPosition = positionTriangle.label;
-            alterPositionPiece(selectedPiece);
+            alterPositionPiece(selectedPiece, positionTriangle);
           }else{
             toast.error("Você só pode se movimentar para triangulos da mesma cor.")
-
           }
-          // activatePlayer.turn
           socket.emit('CHANGE_GAME', stateGame);
-
-
         }else{
           toast.error('Selecione uma peça.');
         }
-
     }
-
   }else{
     toast.error('Não é sua vez.')
   }
 }
-
 
   return (
     <>
