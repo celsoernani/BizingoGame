@@ -15,6 +15,8 @@ io.on("connection", socket => {
     const {error, player} = addPlayer({id: socket.id, name})
     if(error) callback({error: error});
     socket.join('game');
+    // socket.emit('message', { player: player.name, text: `${player.name},
+    //   Bem Vindo ao Bizingo.`});
     // sending to all clients in 'game' room, including sender
     io.to('game').emit('players', { players: getPlayers() });
     callback(player)
@@ -35,6 +37,11 @@ io.on("connection", socket => {
   socket.on('RESET_GAME', (gameState) => {
     // sending to all clients except sender
     socket.broadcast.emit('RESET', {gameState});
+  });
+
+  socket.on('GAME_OVER', (gameState,) => {
+    // sending to all clients except sender
+    socket.broadcast.emit('OVER', {gameState});
   });
 
   socket.on("disconnect", () => {
