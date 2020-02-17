@@ -5,6 +5,7 @@ export default createGlobalStyle`
   body {
     background-color: #BC97CC;
     font-family: 'Sriracha', cursive;
+    margin: 0;
   }
   button {
     cursor: pointer;
@@ -12,23 +13,23 @@ export default createGlobalStyle`
 
 /* width */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 2px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
+  border-radius: 2px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #201A23;
-  border-radius: 10px;
+  background: #201A23 ;
+  border-radius: 2px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #BC97CC;
+  background: #631d76;
 }
 `;
