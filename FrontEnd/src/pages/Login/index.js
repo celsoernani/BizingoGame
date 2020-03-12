@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Container,ContainerInputs, Title,Input, ButtonEnter, IoStyle } from './styles';
+import socket from '../../conection/socket';
+
 
 export default function Login() {
   const [name, setName] = useState('');
@@ -8,12 +10,15 @@ export default function Login() {
         alert("Preencha seu nome !")
         e.preventDefault()
       }
-
   }
+
+  useEffect(() => {
+    socket.emit('teste', 1);
+  }, [])
   return (
     <Container>
       <ContainerInputs>
-        <div style = {{display: 'flex', flexDirection: 'row',marginBottom: '10%s'}}>
+        <div style = {{display: 'flex', flexDirection: 'row',marginBottom: '10%'}}>
         <Title>bizingo</Title>
         <IoStyle>Io</IoStyle>
         </div>

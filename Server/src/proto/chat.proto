@@ -1,0 +1,41 @@
+//como se fosse um contrato
+
+syntax = "proto3";
+//sempre deve existir uma message para que receba os parametros e uma 
+//messagem retornando os parametro
+//verificar como mandar um estado e como está recebendo no socket da pasta
+
+
+//esse proto também vai ta n api ou no cliente no caso react exatamente igual.
+
+
+message Mensagem {
+  string id= 1;
+  string userId = 2;
+  string message = 3;
+}
+
+message allMessagesResponse {
+  repeated Mensagem message = 1;
+}
+
+message getMessagePlayer {
+  string id = 1;
+  string message = 2;
+ }
+ 
+ message messagePlayerResponse {
+   Mensagem message = 1;
+ }
+
+ message messageResponse {
+  Mensagem message = 1;
+}
+
+ //para ser array nasta usar um repeated
+
+ service ChatService {
+  rpc SendMessage (getMessagePlayer) returns (messagePlayerResponse); //define uma funçção que recebe os parametros e depois retorna de acordo com a definação 
+  rpc AllMessages(allMessagesResponse) returns (messageResponse);
+
+}

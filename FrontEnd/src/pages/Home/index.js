@@ -7,6 +7,7 @@ import {toast} from 'react-toastify';
 import socket from '../../conection/socket';
 import initialPieces from '../../utils/initialPieces';
 import initialTriangles from '../../utils/trianglesInitial';
+
 export default function Home({location}) {
   const [player, setPlayer] = useState('');
   const [session, setSession] = useState(false);
@@ -29,13 +30,15 @@ export default function Home({location}) {
     }
 
   }, [location.search ]);
+
   return (
   <>
   {/* <InfoGamer/> */}
     {session ? null :
     <div style={{ display: 'flex'}}>
-    <Chat player = {player}/>
-    <Game initialPieces = {initialPieces}  initialTriangles = {initialTriangles} player = {player}/>
+    {/* player = {player} */}
+    <Chat />
+    {/* <Game initialPieces = {initialPieces}  initialTriangles = {initialTriangles} player = {player}/> */}
 
 
    </div> }

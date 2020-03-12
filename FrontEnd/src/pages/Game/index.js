@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import Board from './../../components/Board';
 import {toast} from 'react-toastify';
+
 import socket from '../../conection/socket';
 
 export default function Game({player, initialPieces, initialTriangles}) {

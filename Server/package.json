@@ -5,12 +5,13 @@
   "author": "celsoernani <celsoernane@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "server": "nodemon src/index.js",
     "start": "nodemon index.js"
   },
   "dependencies": {
+    "@grpc/proto-loader": "^0.5.3",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
-    "nodemon": "^2.0.2",
-    "socket.io": "^2.3.0"
-  }
+    "grpc": "^1.24.2",
+    "nodemon": "^2.0.2"  }
 }

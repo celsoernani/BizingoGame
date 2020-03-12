@@ -4,7 +4,6 @@ import {ToastContainer} from 'react-toastify';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import './config/ReacttronConfig';
-
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = () => {
@@ -13,7 +12,7 @@ const App = () => {
        <GlobalStyle/>
        <ToastContainer autoClose = {3000}/>
       <Route path="/" exact component={Login} />
-      <Route path="/game" component={Home} />
+      {/* <Route path="/game" component={Home} /> */}
     </Router>
   );
 }
