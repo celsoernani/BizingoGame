@@ -1,0 +1,47 @@
+syntax = "proto3";
+//sempre deve existir uma message para que receba os parametros e uma 
+//messagem retornando os parametro
+//verificar como mandar um estado e como está recebendo no socket da pasta
+//esse proto também vai ta n api ou no cliente no caso react exatamente igual.
+
+message Player {
+  string id= 1;
+  string name = 2;
+  int32 side = 3;
+}
+message AddPlayer {
+  Player player = 1;
+ }
+message PlayerResponse {
+  Player player = 1;
+ }
+
+ message ListPlayersequest {
+  string id = 1;
+}
+message ListPlayersResponse {
+  repeated Player players = 1;
+}
+message Message { 
+  string name = 1;
+  string text = 2;
+}
+message AddMessage {
+  Message message = 1;
+ }
+message MessageResponse {
+  Message message = 1;
+ }
+ message ListMessagesequest {
+  string id = 1;
+}
+message ListMessagesResponse {
+  repeated Message messages = 1;
+}
+ service GameService {
+  rpc CreatePlayer(AddPlayer) returns (PlayerResponse); 
+  rpc FindPlayers(ListPlayersequest) returns (ListPlayersResponse);
+  rpc CreateMessage(AddMessage) returns (MessageResponse); 
+  rpc FindMessages(ListMessagesequest) returns (ListMessagesResponse);
+
+}

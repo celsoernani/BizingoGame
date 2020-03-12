@@ -27,6 +27,7 @@
 .sentText {
   display: flex;
   align-items: center;
+  margin-right: 10px;
   font-family: Helvetica;
   color: #fbfbfb;
   letter-spacing: 0.3px;

@@ -3,38 +3,24 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const PORT = process.env.PORT || 8000;
-
-
-const ChatController = require('./controllers/ChatController');
-
-// app.use(routes);
+const PlayerController = require('./controllers/PlayerController');
+const MessagesController = require('./controllers/MessagesController');
 
 io.on("connection", socket => {
-  
-  socket.on('teste', async  (id, message) => {
-    // var bodyEncodedInString = String.fromCharCode.apply(String, new Uint8Array(message));
-    // console.log("esse",bodyEncodedInString);
-    const response = await ChatController.send(id);
 
+  socket.on('join', async ({id, name}, callback) => {
+    const response = await PlayerController.create(id, name);
+    const responseFind = await PlayerController.find();
+    io.sockets.emit('broadcast', responseFind);
+    callback(response);
   })
-  
-  // socket.on("join", ({name}, callback) => { 
-  //   console.log(`Jogador se conectou ao servidor com: 
-  //                 ${socket.id} e se chama ${name}`);
-  //   const {error, player} = addPlayer({id: socket.id, name})
-  //   if(error) callback({error: error});
-  //   socket.join('game');
-  //   io.to('game').emit('players', { players: getPlayers() });
-  //   callback(player)
-  // });
 
-  // socket.on('sendMessage', (message, callback) => {
-  //   const {error, player} = getPlayer(socket.id);
-  //   if(error) return callback(error);
-  //     // sending to all clients except sender
-  //   socket.broadcast.emit('message', { player: player.name, text: message });
-  //   callback();
-  // });
+  socket.on('sendMessage', async  ({name, text}, callback) => {
+    const response = await MessagesController.create(name, text)
+    io.sockets.emit('message', response.message);
+    callback();
+  });
+
   // socket.on('CHANGE_GAME', (gameState) => {
   //   // sending to all clients except sender
   //   socket.broadcast.emit('MOVE_PIECES', {gameState});

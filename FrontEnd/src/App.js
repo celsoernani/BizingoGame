@@ -12,7 +12,7 @@ const App = () => {
        <GlobalStyle/>
        <ToastContainer autoClose = {3000}/>
       <Route path="/" exact component={Login} />
-      {/* <Route path="/game" component={Home} /> */}
+      <Route path="/game" component={Home} />
     </Router>
   );
 }

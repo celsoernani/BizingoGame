@@ -2,12 +2,12 @@ import React from 'react';
 import './styles.css';
 import ReactEmoji from 'react-emoji';
 
-const MessageBox = ({ message: { text, player }, name }) => {
+const MessageBox = ({ message: { text, name }, sameName }) => {
   let isSentByCurrentPlayer = false;
 
-  const trimmedName = name.trim().toLowerCase();
+  const trimmedName = sameName.trim().toLowerCase();
 
-  if(player === trimmedName) {
+  if(name !== trimmedName) {
     isSentByCurrentPlayer = true;
   }
 
@@ -18,6 +18,7 @@ const MessageBox = ({ message: { text, player }, name }) => {
           <div className="messageBox backgroundPurple">
             <p className="messageText colorPurple">{ReactEmoji.emojify(text)}</p>
           </div>
+          <p className="sentText">{name}</p>
         </div>
         )
         : (
@@ -25,7 +26,7 @@ const MessageBox = ({ message: { text, player }, name }) => {
             <div className="messageBox backgroundLight">
               <p className="messageText colorRed">{ReactEmoji.emojify(text)}</p>
             </div>
-            <p className="sentText">{player}</p>
+            <p className="sentText">{sameName}</p>
           </div>
         )
   );

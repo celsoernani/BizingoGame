@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import { Container,ContainerInputs, Title,Input, ButtonEnter, IoStyle } from './styles';
-import socket from '../../conection/socket';
 
 
 export default function Login() {
@@ -12,9 +11,6 @@ export default function Login() {
       }
   }
 
-  useEffect(() => {
-    socket.emit('teste', 1);
-  }, [])
   return (
     <Container>
       <ContainerInputs>
