@@ -21,7 +21,6 @@ export default function Chat({player}) {
   const sendMessage = (event) => {
       event.preventDefault();
       if(message) {
-        // setMessages([...messages, {player: player.name, text: message}]);
         socket.emit('sendMessage', {name: player.name, text: message}, () => setMessage(''));
         setMessage('')
       }

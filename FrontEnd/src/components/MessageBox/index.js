@@ -14,20 +14,23 @@ const MessageBox = ({ message: { text, name }, sameName }) => {
   return (
     isSentByCurrentPlayer
       ? (
-        <div className="messageContainer justifyEnd">
+        <div className="messageContainer justifyStart">
+        <div className="messageBox backgroundLight">
+          <p className="messageText colorRed">{ReactEmoji.emojify(text)}</p>
+        </div>
+        <p className="sentText">{sameName}</p>
+      </div>
+
+        )
+        : (
+          <div className="messageContainer justifyEnd">
           <div className="messageBox backgroundPurple">
             <p className="messageText colorPurple">{ReactEmoji.emojify(text)}</p>
           </div>
-          <p className="sentText">{name}</p>
+          <p className="sentText">{"eu  "}</p>
         </div>
-        )
-        : (
-          <div className="messageContainer justifyStart">
-            <div className="messageBox backgroundLight">
-              <p className="messageText colorRed">{ReactEmoji.emojify(text)}</p>
-            </div>
-            <p className="sentText">{sameName}</p>
-          </div>
+
+
         )
   );
 }
