@@ -8,6 +8,7 @@ message Player {
   string id= 1;
   string name = 2;
   int32 side = 3;
+  bool turn = 4;
 }
 message AddPlayer {
   Player player = 1;
@@ -22,6 +23,12 @@ message PlayerResponse {
 message ListPlayersResponse {
   repeated Player players = 1;
 }
+
+
+message UpdateChangeListPlayers {
+  repeated Player players = 1;
+}
+
 message Message { 
   string name = 1;
   string text = 2;
@@ -73,6 +80,5 @@ message GameResponse {
   rpc CreateMessage(AddMessage) returns (MessageResponse); 
   rpc FindMessages(ListMessagesequest) returns (ListMessagesResponse);
   rpc UpdateGameState(UpdateGame) returns (GameResponse);
-
-
+  rpc UpdatePlayersServer(UpdateChangeListPlayers) returns (ListPlayersResponse); 
 }

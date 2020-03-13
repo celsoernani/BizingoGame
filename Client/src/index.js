@@ -15,6 +15,11 @@ io.on("connection", socket => {
     io.sockets.emit('players', responseFind);
     callback(response);
   })
+  
+  socket.on('changeTurn', async  (players, callback) => {
+    const response = await PlayerController.update(players);
+    io.sockets.emit('change_turn',response);
+  });
 
   socket.on('sendMessage', async  ({name, text}, callback) => {
     const response = await MessagesController.create(name, text)
@@ -26,6 +31,7 @@ io.on("connection", socket => {
     const response = await GameController.update(stateGame);
     io.sockets.emit('move_pieces',response);
   });
+
 
   // socket.on('CHANGE_GAME', (gameState) => {
   //   // sending to all clients except sender

@@ -2,6 +2,7 @@ let players = [];
 
 const addPlayer = ({id, name}) => {
   name = name.trim().toLowerCase();
+  console.log("tamanho dos players para comparção",players.length )
   const existingPlayer = players.find((player) => player.name === name);
   if(existingPlayer) {
     return {error: 'O Jogador já está na sessão.'}
@@ -17,7 +18,7 @@ const addPlayer = ({id, name}) => {
   }else if(players.length === 1){
     player.id = id
     player.name = name
-    player.side=  1;
+    player.side= 1;
   }
   players.push(player);
   return {player};
@@ -44,5 +45,10 @@ const findPlayers = () => {
   return {error: 'Sem jogadores sessão.'}
 }
 
+const updatePlayers = (newPlayers) => {
+  players = newPlayers; 
+  return {players};
+}
 
-module.exports = {addPlayer,removePlayer, getPlayer, findPlayers}
+
+module.exports = {addPlayer,removePlayer, getPlayer, findPlayers, updatePlayers}

@@ -27,11 +27,22 @@ useEffect(() => {
   });
 });
 
-useEffect(() => {
+useEffect( () => {
   socket.on('move_pieces', (reponseGameState) => {
-    console.tron.log(reponseGameState.gamestate)
-    setstateGame(reponseGameState.gamestate);
-})
+    setstateGame(reponseGameState.gamestate);})
+});
+
+useEffect( () => {
+  socket.on('change_turn', (newPlayers) => {
+    setPlayers(newPlayers);})
+});
+
+
+
+
+useEffect(() => {
+
+
 
   socket.on('OVER', ({gameState}) => {
     setGameOver(true);
@@ -109,8 +120,8 @@ const alterPositionPiece = (newPiece, newTriangle) => {
         playersAux[0].turn = true;
         playersAux[1].turn = false;
       }
-
     checkKill(newTriangle,piecesAux,pieceIndex);
+    socket.emit('changeTurn', playersAux);
     setPlayers(playersAux)
     setstateGame({...stateGame, pieces: piecesAux})
     }else{
@@ -151,7 +162,6 @@ const prepMove = (positionTriangle, positionPiece) => {
           }else{
             toast.error("Você só pode se movimentar para triangulos da mesma cor.")
           }
-          console.tron.log(stateGame)
           socket.emit('changeGame', {stateGame});
           checkKillAll();
           verifyGameOver();

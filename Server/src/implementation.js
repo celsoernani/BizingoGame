@@ -1,5 +1,5 @@
 
-const {addPlayer,findPlayers,removePlayer,getPlayer} = require('../data/players.js');
+const {addPlayer,findPlayers, updatePlayers} = require('../data/players.js');
 const {addMessage,findMessages,getMessages} = require('../data/messages.js');
 const {setStateGame} = require('../data/game.js');
 
@@ -7,13 +7,19 @@ const {setStateGame} = require('../data/game.js');
 module.exports = {
   CreatePlayer(call, callback) {
     const {player} = call.request;
-    addPlayer(player);
+    const responsePlayer =  addPlayer(player);
+    console.log(responsePlayer)
     //pegar dados no user me algum estado aqui no server. 
-    return callback(null, {player})
+    return callback(null, responsePlayer)
   },
   FindPlayers(call, callback) {
     const players = findPlayers()
     return callback(null, {players})
+  },
+  UpdatePlayersServer(call, callback) {
+    const {players} = call.request;
+    const responsePlayers = updatePlayers(players);
+    return callback(null, responsePlayers)
   },
   CreateMessage(call, callback) {
     const {message} = call.request;
