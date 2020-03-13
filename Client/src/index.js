@@ -5,13 +5,14 @@ const io = require('socket.io')(server);
 const PORT = process.env.PORT || 8000;
 const PlayerController = require('./controllers/PlayerController');
 const MessagesController = require('./controllers/MessagesController');
+const GameController = require('./controllers/GameController');
 
 io.on("connection", socket => {
 
   socket.on('join', async ({id, name}, callback) => {
     const response = await PlayerController.create(id, name);
     const responseFind = await PlayerController.find();
-    io.sockets.emit('broadcast', responseFind);
+    io.sockets.emit('players', responseFind);
     callback(response);
   })
 
@@ -19,6 +20,11 @@ io.on("connection", socket => {
     const response = await MessagesController.create(name, text)
     io.sockets.emit('message', response.message);
     callback();
+  });
+
+  socket.on('changeGame', async  ({stateGame}, callback) => {
+    const response = await GameController.update(stateGame);
+    io.sockets.emit('move_pieces',response);
   });
 
   // socket.on('CHANGE_GAME', (gameState) => {

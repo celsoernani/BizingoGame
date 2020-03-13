@@ -1,6 +1,7 @@
 
 const {addPlayer,findPlayers,removePlayer,getPlayer} = require('../data/players.js');
 const {addMessage,findMessages,getMessages} = require('../data/messages.js');
+const {setStateGame} = require('../data/game.js');
 
 
 module.exports = {
@@ -23,5 +24,11 @@ module.exports = {
   FindMessages(call, callback) {
     const messages = findMessages()
     return callback(null, {messages})
-  }
+  },
+  UpdateGameState(call, callback) {
+    const {gamestate} = call.request;
+    setStateGame(gamestate);
+    //pegar dados no user me algum estado aqui no server. 
+    return callback(null, {gamestate})
+  },
 }

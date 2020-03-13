@@ -46,5 +46,5 @@ while(quant_pices > 18){
     return triangles;
 }
 
-const trianglesInitial = renderBoard()
+const trianglesInitial = renderBoard();
 export default trianglesInitial;

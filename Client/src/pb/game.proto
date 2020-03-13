@@ -38,10 +38,41 @@ message MessageResponse {
 message ListMessagesResponse {
   repeated Message messages = 1;
 }
+
+message Piece { 
+  int32 id = 1;
+  bool alive = 2;
+  bool captain = 3;
+  int32 side = 4;
+  int32 labelPosition = 5;
+}
+
+message Triangle { 
+  bool available = 1;
+  int32 label = 2;
+  int32 top= 3;
+  int32 left= 4;
+  int32 side= 5;
+  Piece piece = 6;
+}
+
+message GameState { 
+  repeated Piece pieces = 1; 
+  repeated Triangle triangles = 2;
+}
+message UpdateGame {
+  GameState gamestate = 1;
+}
+message GameResponse {
+  GameState gamestate = 1;
+ }
+
  service GameService {
   rpc CreatePlayer(AddPlayer) returns (PlayerResponse); 
   rpc FindPlayers(ListPlayersequest) returns (ListPlayersResponse);
   rpc CreateMessage(AddMessage) returns (MessageResponse); 
   rpc FindMessages(ListMessagesequest) returns (ListMessagesResponse);
+  rpc UpdateGameState(UpdateGame) returns (GameResponse);
+
 
 }

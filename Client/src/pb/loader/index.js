@@ -11,8 +11,6 @@ module.exports = function load({
   address,
   credentials = grpc.credentials.createInsecure(),
 }) {
-
-  console.log(serviceName,fileName,address)
   const protoDef = protoLoader.loadSync(
     path.resolve(__dirname, '..', `${fileName}.proto`),
     protoConfig
