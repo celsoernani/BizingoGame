@@ -66,6 +66,7 @@ message Triangle {
 message GameState { 
   repeated Piece pieces = 1; 
   repeated Triangle triangles = 2;
+  bool gameover = 3;
 }
 message UpdateGame {
   GameState gamestate = 1;

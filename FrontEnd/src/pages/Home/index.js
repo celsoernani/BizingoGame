@@ -15,7 +15,6 @@ export default function Home({location}) {
   useEffect(() => {
     const {name} =  queryString.parse(location.search);
     socket.emit('join', ({id: Math.random(),name}), (response) => {
-      console.tron.log(response)
       setPlayer(response.player);
     });
     setSession(false);

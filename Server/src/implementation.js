@@ -8,7 +8,6 @@ module.exports = {
   CreatePlayer(call, callback) {
     const {player} = call.request;
     const responsePlayer =  addPlayer(player);
-    console.log(responsePlayer)
     //pegar dados no user me algum estado aqui no server. 
     return callback(null, responsePlayer)
   },

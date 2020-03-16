@@ -48,13 +48,13 @@ io.on("connection", socket => {
   //   socket.broadcast.emit('OVER', {gameState});
   // });
 
-  // socket.on("disconnect", () => {
-  //   const player = removePlayer(socket.id);
-  //   if(player){
-  //     socket.broadcast.emit('message', { player: player.name, text: `${player.name} saiu do jogo.`});
-  //   }
-  // }
-  // );
+  socket.on("disconnect", () => {
+    const player = removePlayer(socket.id);
+    if(player){
+      socket.broadcast.emit('message', { player: player.name, text: `${player.name} saiu do jogo.`});
+    }
+  }
+  );
 
 
 });
