@@ -1,5 +1,5 @@
 syntax = "proto3";
-//sempre deve existir uma message para que receba os parametros e uma 
+//sempre deve existir uma message para que receba os parametros e uma
 //messagem retornando os parametro
 //verificar como mandar um estado e como está recebendo no socket da pasta
 //esse proto também vai ta n api ou no cliente no caso react exatamente igual.
@@ -11,10 +11,12 @@ message Player {
   bool turn = 4;
 }
 message AddPlayer {
-  Player player = 1;
+  string id= 1;
+
  }
 message PlayerResponse {
-  Player player = 1;
+  string id= 1;
+
  }
 
  message ListPlayersequest {
@@ -29,7 +31,7 @@ message UpdateChangeListPlayers {
   repeated Player players = 1;
 }
 
-message Message { 
+message Message {
   string name = 1;
   string text = 2;
 }
@@ -46,7 +48,7 @@ message ListMessagesResponse {
   repeated Message messages = 1;
 }
 
-message Piece { 
+message Piece {
   int32 id = 1;
   bool alive = 2;
   bool captain = 3;
@@ -54,7 +56,7 @@ message Piece {
   int32 labelPosition = 5;
 }
 
-message Triangle { 
+message Triangle {
   bool available = 1;
   int32 label = 2;
   int32 top= 3;
@@ -63,8 +65,8 @@ message Triangle {
   Piece piece = 6;
 }
 
-message GameState { 
-  repeated Piece pieces = 1; 
+message GameState {
+  repeated Piece pieces = 1;
   repeated Triangle triangles = 2;
   bool gameover = 3;
 }
@@ -76,10 +78,10 @@ message GameResponse {
  }
 
  service GameService {
-  rpc CreatePlayer(AddPlayer) returns (PlayerResponse); 
+  rpc CreatePlayer(AddPlayer) returns (PlayerResponse);
   rpc FindPlayers(ListPlayersequest) returns (ListPlayersResponse);
-  rpc CreateMessage(AddMessage) returns (MessageResponse); 
+  rpc CreateMessage(AddMessage) returns (MessageResponse);
   rpc FindMessages(ListMessagesequest) returns (ListMessagesResponse);
   rpc UpdateGameState(UpdateGame) returns (GameResponse);
-  rpc UpdatePlayersServer(UpdateChangeListPlayers) returns (ListPlayersResponse); 
+  rpc UpdatePlayersServer(UpdateChangeListPlayers) returns (ListPlayersResponse);
 }

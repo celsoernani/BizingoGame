@@ -1,12 +1,12 @@
 /**
- * @fileoverview gRPC-Web generated client stub for 
+ * @fileoverview gRPC-Web generated client stub for
  * @enhanceable
  * @public
  */
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
+/* eslint-disable */
 
 const grpc = {};
 grpc.web = require('grpc-web');
@@ -21,8 +21,7 @@ const proto = require('./game_pb.js');
  * @struct
  * @final
  */
-proto.GameServiceClient =
-    function(hostname, credentials, options) {
+proto.GameServiceClient = function(hostname, credentials, options) {
   if (!options) options = {};
   options['format'] = 'text';
 
@@ -35,9 +34,7 @@ proto.GameServiceClient =
    * @private @const {string} The hostname
    */
   this.hostname_ = hostname;
-
 };
-
 
 /**
  * @param {string} hostname
@@ -47,8 +44,7 @@ proto.GameServiceClient =
  * @struct
  * @final
  */
-proto.GameServicePromiseClient =
-    function(hostname, credentials, options) {
+proto.GameServicePromiseClient = function(hostname, credentials, options) {
   if (!options) options = {};
   options['format'] = 'text';
 
@@ -61,9 +57,7 @@ proto.GameServicePromiseClient =
    * @private @const {string} The hostname
    */
   this.hostname_ = hostname;
-
 };
-
 
 /**
  * @const
@@ -86,7 +80,6 @@ const methodDescriptor_GameService_CreatePlayer = new grpc.web.MethodDescriptor(
   proto.PlayerResponse.deserializeBinary
 );
 
-
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
@@ -105,7 +98,6 @@ const methodInfo_GameService_CreatePlayer = new grpc.web.AbstractClientBase.Meth
   proto.PlayerResponse.deserializeBinary
 );
 
-
 /**
  * @param {!proto.AddPlayer} request The
  *     request proto
@@ -116,16 +108,19 @@ const methodInfo_GameService_CreatePlayer = new grpc.web.AbstractClientBase.Meth
  * @return {!grpc.web.ClientReadableStream<!proto.PlayerResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.GameServiceClient.prototype.createPlayer =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/GameService/CreatePlayer',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_CreatePlayer,
-      callback);
+proto.GameServiceClient.prototype.createPlayer = function(
+  request,
+  metadata,
+  callback
+) {
+  return this.client_.rpcCall(
+    this.hostname_ + '/GameService/CreatePlayer',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_CreatePlayer,
+    callback
+  );
 };
-
 
 /**
  * @param {!proto.AddPlayer} request The
@@ -135,15 +130,17 @@ proto.GameServiceClient.prototype.createPlayer =
  * @return {!Promise<!proto.PlayerResponse>}
  *     A native promise that resolves to the response
  */
-proto.GameServicePromiseClient.prototype.createPlayer =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/GameService/CreatePlayer',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_CreatePlayer);
+proto.GameServicePromiseClient.prototype.createPlayer = function(
+  request,
+  metadata
+) {
+  return this.client_.unaryCall(
+    this.hostname_ + '/GameService/CreatePlayer',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_CreatePlayer
+  );
 };
-
 
 /**
  * @const
@@ -166,7 +163,6 @@ const methodDescriptor_GameService_FindPlayers = new grpc.web.MethodDescriptor(
   proto.ListPlayersResponse.deserializeBinary
 );
 
-
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
@@ -185,7 +181,6 @@ const methodInfo_GameService_FindPlayers = new grpc.web.AbstractClientBase.Metho
   proto.ListPlayersResponse.deserializeBinary
 );
 
-
 /**
  * @param {!proto.ListPlayersequest} request The
  *     request proto
@@ -196,16 +191,19 @@ const methodInfo_GameService_FindPlayers = new grpc.web.AbstractClientBase.Metho
  * @return {!grpc.web.ClientReadableStream<!proto.ListPlayersResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.GameServiceClient.prototype.findPlayers =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/GameService/FindPlayers',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_FindPlayers,
-      callback);
+proto.GameServiceClient.prototype.findPlayers = function(
+  request,
+  metadata,
+  callback
+) {
+  return this.client_.rpcCall(
+    this.hostname_ + '/GameService/FindPlayers',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_FindPlayers,
+    callback
+  );
 };
-
 
 /**
  * @param {!proto.ListPlayersequest} request The
@@ -215,15 +213,17 @@ proto.GameServiceClient.prototype.findPlayers =
  * @return {!Promise<!proto.ListPlayersResponse>}
  *     A native promise that resolves to the response
  */
-proto.GameServicePromiseClient.prototype.findPlayers =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/GameService/FindPlayers',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_FindPlayers);
+proto.GameServicePromiseClient.prototype.findPlayers = function(
+  request,
+  metadata
+) {
+  return this.client_.unaryCall(
+    this.hostname_ + '/GameService/FindPlayers',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_FindPlayers
+  );
 };
-
 
 /**
  * @const
@@ -246,7 +246,6 @@ const methodDescriptor_GameService_CreateMessage = new grpc.web.MethodDescriptor
   proto.MessageResponse.deserializeBinary
 );
 
-
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
@@ -265,7 +264,6 @@ const methodInfo_GameService_CreateMessage = new grpc.web.AbstractClientBase.Met
   proto.MessageResponse.deserializeBinary
 );
 
-
 /**
  * @param {!proto.AddMessage} request The
  *     request proto
@@ -276,16 +274,19 @@ const methodInfo_GameService_CreateMessage = new grpc.web.AbstractClientBase.Met
  * @return {!grpc.web.ClientReadableStream<!proto.MessageResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.GameServiceClient.prototype.createMessage =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/GameService/CreateMessage',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_CreateMessage,
-      callback);
+proto.GameServiceClient.prototype.createMessage = function(
+  request,
+  metadata,
+  callback
+) {
+  return this.client_.rpcCall(
+    this.hostname_ + '/GameService/CreateMessage',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_CreateMessage,
+    callback
+  );
 };
-
 
 /**
  * @param {!proto.AddMessage} request The
@@ -295,15 +296,17 @@ proto.GameServiceClient.prototype.createMessage =
  * @return {!Promise<!proto.MessageResponse>}
  *     A native promise that resolves to the response
  */
-proto.GameServicePromiseClient.prototype.createMessage =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/GameService/CreateMessage',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_CreateMessage);
+proto.GameServicePromiseClient.prototype.createMessage = function(
+  request,
+  metadata
+) {
+  return this.client_.unaryCall(
+    this.hostname_ + '/GameService/CreateMessage',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_CreateMessage
+  );
 };
-
 
 /**
  * @const
@@ -326,7 +329,6 @@ const methodDescriptor_GameService_FindMessages = new grpc.web.MethodDescriptor(
   proto.ListMessagesResponse.deserializeBinary
 );
 
-
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
@@ -345,7 +347,6 @@ const methodInfo_GameService_FindMessages = new grpc.web.AbstractClientBase.Meth
   proto.ListMessagesResponse.deserializeBinary
 );
 
-
 /**
  * @param {!proto.ListMessagesequest} request The
  *     request proto
@@ -356,16 +357,19 @@ const methodInfo_GameService_FindMessages = new grpc.web.AbstractClientBase.Meth
  * @return {!grpc.web.ClientReadableStream<!proto.ListMessagesResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.GameServiceClient.prototype.findMessages =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/GameService/FindMessages',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_FindMessages,
-      callback);
+proto.GameServiceClient.prototype.findMessages = function(
+  request,
+  metadata,
+  callback
+) {
+  return this.client_.rpcCall(
+    this.hostname_ + '/GameService/FindMessages',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_FindMessages,
+    callback
+  );
 };
-
 
 /**
  * @param {!proto.ListMessagesequest} request The
@@ -375,15 +379,17 @@ proto.GameServiceClient.prototype.findMessages =
  * @return {!Promise<!proto.ListMessagesResponse>}
  *     A native promise that resolves to the response
  */
-proto.GameServicePromiseClient.prototype.findMessages =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/GameService/FindMessages',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_FindMessages);
+proto.GameServicePromiseClient.prototype.findMessages = function(
+  request,
+  metadata
+) {
+  return this.client_.unaryCall(
+    this.hostname_ + '/GameService/FindMessages',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_FindMessages
+  );
 };
-
 
 /**
  * @const
@@ -406,7 +412,6 @@ const methodDescriptor_GameService_UpdateGameState = new grpc.web.MethodDescript
   proto.GameResponse.deserializeBinary
 );
 
-
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
@@ -425,7 +430,6 @@ const methodInfo_GameService_UpdateGameState = new grpc.web.AbstractClientBase.M
   proto.GameResponse.deserializeBinary
 );
 
-
 /**
  * @param {!proto.UpdateGame} request The
  *     request proto
@@ -436,16 +440,19 @@ const methodInfo_GameService_UpdateGameState = new grpc.web.AbstractClientBase.M
  * @return {!grpc.web.ClientReadableStream<!proto.GameResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.GameServiceClient.prototype.updateGameState =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/GameService/UpdateGameState',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_UpdateGameState,
-      callback);
+proto.GameServiceClient.prototype.updateGameState = function(
+  request,
+  metadata,
+  callback
+) {
+  return this.client_.rpcCall(
+    this.hostname_ + '/GameService/UpdateGameState',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_UpdateGameState,
+    callback
+  );
 };
-
 
 /**
  * @param {!proto.UpdateGame} request The
@@ -455,15 +462,17 @@ proto.GameServiceClient.prototype.updateGameState =
  * @return {!Promise<!proto.GameResponse>}
  *     A native promise that resolves to the response
  */
-proto.GameServicePromiseClient.prototype.updateGameState =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/GameService/UpdateGameState',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_UpdateGameState);
+proto.GameServicePromiseClient.prototype.updateGameState = function(
+  request,
+  metadata
+) {
+  return this.client_.unaryCall(
+    this.hostname_ + '/GameService/UpdateGameState',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_UpdateGameState
+  );
 };
-
 
 /**
  * @const
@@ -486,7 +495,6 @@ const methodDescriptor_GameService_UpdatePlayersServer = new grpc.web.MethodDesc
   proto.ListPlayersResponse.deserializeBinary
 );
 
-
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
@@ -505,7 +513,6 @@ const methodInfo_GameService_UpdatePlayersServer = new grpc.web.AbstractClientBa
   proto.ListPlayersResponse.deserializeBinary
 );
 
-
 /**
  * @param {!proto.UpdateChangeListPlayers} request The
  *     request proto
@@ -516,16 +523,19 @@ const methodInfo_GameService_UpdatePlayersServer = new grpc.web.AbstractClientBa
  * @return {!grpc.web.ClientReadableStream<!proto.ListPlayersResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.GameServiceClient.prototype.updatePlayersServer =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/GameService/UpdatePlayersServer',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_UpdatePlayersServer,
-      callback);
+proto.GameServiceClient.prototype.updatePlayersServer = function(
+  request,
+  metadata,
+  callback
+) {
+  return this.client_.rpcCall(
+    this.hostname_ + '/GameService/UpdatePlayersServer',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_UpdatePlayersServer,
+    callback
+  );
 };
-
 
 /**
  * @param {!proto.UpdateChangeListPlayers} request The
@@ -535,15 +545,16 @@ proto.GameServiceClient.prototype.updatePlayersServer =
  * @return {!Promise<!proto.ListPlayersResponse>}
  *     A native promise that resolves to the response
  */
-proto.GameServicePromiseClient.prototype.updatePlayersServer =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/GameService/UpdatePlayersServer',
-      request,
-      metadata || {},
-      methodDescriptor_GameService_UpdatePlayersServer);
+proto.GameServicePromiseClient.prototype.updatePlayersServer = function(
+  request,
+  metadata
+) {
+  return this.client_.unaryCall(
+    this.hostname_ + '/GameService/UpdatePlayersServer',
+    request,
+    metadata || {},
+    methodDescriptor_GameService_UpdatePlayersServer
+  );
 };
 
-
 module.exports = proto;
-
