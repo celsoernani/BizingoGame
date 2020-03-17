@@ -11,10 +11,12 @@ message Player {
   bool turn = 4;
 }
 message AddPlayer {
-  Player player = 1;
+  string id= 1;
+
  }
 message PlayerResponse {
-  Player player = 1;
+  string id= 1;
+
  }
 
  message ListPlayersequest {
