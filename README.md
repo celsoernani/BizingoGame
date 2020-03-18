@@ -32,7 +32,6 @@ yarn client
 
 # Observações
 
-Caso deseje mudar a porta do server, basta entrar no index.js que está no Server e alterar a variável,
-PORT. Não esquecer também de mudar a conexão do Front para a mesma por em Front/src/pages/Home;
+Caso deseje mudar a porta do server, basta entrar no index.js que está em Server/src e alterar o link do serverbind.
 
 Existem uma api gateway que serve para ligar a interface ao client que conecta ao servidor com grpc.
